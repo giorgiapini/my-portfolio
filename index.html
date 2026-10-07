@@ -101,10 +101,11 @@
     <section class="section contact-section" id="contact" aria-labelledby="contact-title">
       <div class="container contact-grid">
         <div class="contact-copy reveal"><p class="eyebrow">05 / GET IN TOUCH</p><h2 id="contact-title">Have an idea?<br><em>Let us talk.</em></h2><p>If you would like to exchange ideas, talk about a project or simply say hello, get in touch.</p><div class="social-links"><a href="https://github.com/giorgiapini">GitHub <span aria-hidden="true">↗</span></a><a href="https://www.linkedin.com/in/giorgia-pini-b1655030b/">LinkedIn <span aria-hidden="true">↗</span></a></div></div>
-        <form class="contact-form reveal" id="contact-form">
+        <form class="contact-form reveal" id="contact-form" action="https://api.web3forms.com/submit" method="POST">
+          <input type="hidden" name="access_key" value="509272a5-afc4-46cb-b0f6-1a2265cd4d4f">
           <div class="form-row"><div class="form-field"><label for="name">Name</label><input id="name" name="name" type="text" autocomplete="name" placeholder="Your name" required></div><div class="form-field"><label for="email">Email</label><input id="email" name="email" type="email" autocomplete="email" placeholder="name@example.com" required></div></div>
           <div class="form-field"><label for="message">Message</label><textarea id="message" name="message" rows="5" placeholder="How can I help?" required></textarea></div>
-          <div class="form-submit"><button class="button button-primary" type="submit">Send message <span aria-hidden="true">↗</span></button><p class="form-note">This form is a frontend demo and does not send email.</p></div>
+          <div class="form-submit"><button class="button button-primary" type="submit">Send message <span aria-hidden="true">↗</span></button><p class="form-note">Send me a message using this form.</p></div>
           <p class="form-status" id="form-status" role="status" aria-live="polite"></p>
         </form>
       </div>

@@ -53,11 +53,41 @@ document.querySelectorAll('.placeholder-link').forEach((link) => {
 
 const contactForm = document.querySelector('#contact-form');
 const formStatus = document.querySelector('#form-status');
-contactForm?.addEventListener('submit', (event) => {
+let isSubmitting = false;
+contactForm?.addEventListener('submit', async (event) => {
   event.preventDefault();
-  if (!contactForm.reportValidity()) return;
-  formStatus.textContent = 'Thanks! This is a frontend demo; connect a service to receive messages.';
-  contactForm.reset();
+  if (isSubmitting || !contactForm.reportValidity()) return;
+
+  const submitButton = contactForm.querySelector('button[type="submit"]');
+  const formData = new FormData(contactForm);
+  isSubmitting = true;
+  submitButton.disabled = true;
+  contactForm.setAttribute('aria-busy', 'true');
+  formStatus.textContent = 'Sending your message...';
+
+  try {
+    const response = await fetch(contactForm.action, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      },
+      body: JSON.stringify(Object.fromEntries(formData))
+    });
+    const result = await response.json();
+    if (!response.ok || result.success !== true) {
+      throw new Error('Message submission failed');
+    }
+
+    formStatus.textContent = "Message sent successfully. I'll get back to you soon!";
+    contactForm.reset();
+  } catch {
+    formStatus.textContent = 'Your message could not be sent. Please try again in a moment.';
+  } finally {
+    isSubmitting = false;
+    submitButton.disabled = false;
+    contactForm.removeAttribute('aria-busy');
+  }
 });
 
 const year = document.querySelector('#year');
